@@ -1,4 +1,4 @@
-#DSL v1.0
+#WebScraping DSL v0.1
 #Author: Shail K Shah
 #Purpose of this file
 #---------------------
@@ -6,8 +6,31 @@
 
 #the command line arguments are assumed to be the files that need to be executed
 import sys
+import os
+import re
+
+def call_module(tok_list):
+    #this function will be incharge of analyzing the token list, and calling the relative call_module
+
+    #incase the line is a comment, that is it starts with a hash, no processing needed
+    if(tok_list[0][0] == '#'):
+        return
+
+    #the command to execute will be the first word, hence, look up the commands
+    command = tok_list[0]
+
+    #if else ladder of the commands
+    if true:
+        #do stuff
+        x=1
+
+    else:
+        print("Unkown command: " + command)
+        return
 
 def main():
+    #This is the main function, it is in charge of splitting tokens
+
     #if no arguments present
     if(len(sys.argv) <= 1):
         print("Please enter the location of the script to execute")
