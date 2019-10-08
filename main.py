@@ -8,24 +8,25 @@
 import sys
 import os
 import re
+import get
 
-def call_module(tok_list):
+def callModule(tokList, lineNo):
     #this function will be incharge of analyzing the token list, and calling the relative call_module
 
     #incase the line is a comment, that is it starts with a hash, no processing needed
-    if(tok_list[0][0] == '#'):
+    if(tokList[0][0] == '#'):
         return
 
     #the command to execute will be the first word, hence, look up the commands
-    command = tok_list[0]
+    command = tokList[0]
 
     #if else ladder of the commands
-    if true:
-        #do stuff
-        x=1
+    if command == "get":
+        #get command is used to get the details of the page
+        get.main(tokList, lineNo)
 
     else:
-        print("Unkown command: " + command)
+        print("Unkown command: " + command + " on line no: " + lineNo)
         return
 
 def main():
@@ -36,26 +37,23 @@ def main():
         print("Please enter the location of the script to execute")
 
     else:
-        try:
-            #Reading the files
-            for file_name in sys.argv:
+        # try:
+        #Reading the files
+        for file_name in sys.argv:
+            if(file_name == "main.py"):
+                continue
 
-                if(file_name == "main.py"):
-                    continue
+            file = open(file_name, "r")
 
-                file = open(file_name, "r")
+            #reading the contents of current files
+            lines = file.readlines();
+            for i in range(len(lines)):
+                lines[i] = lines[i].split()
+                callModule(lines[i], i+1)
 
-                #reading the contents of current files
-                lines = file.readlines();
-                for i in range(len(lines)):
-                    lines[i] = lines[i].split()
+            file.close()
 
-                #do stuff with readlines
-                print(lines)
-
-                file.close()
-
-        except:
-            print("Error in reading the file(s)")
+        # except:
+        #     print("Error in reading the file(s)")
 
 main()
