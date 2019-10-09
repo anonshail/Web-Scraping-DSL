@@ -21,7 +21,15 @@ def main(tokList, lineNo):
     #if else ladder of all the get options
     if(tokList[1] == "text"):
 
-	#error checking should happen here! check all the parameters and make sure that they are valid! WIP
+        #error checking, making sure that all the parameters are correct
+        for i in range(len(tokList)):
+            if tokList[i] == 'get' or tokList[i] == 'text' or tokList[i] == 'write' or tokList[i] == 'from':
+                continue
+            elif tokList[i-1] == 'write' or tokList[i-1] == 'from':
+                continue
+            else:
+                print("Unkown token: " + tokList[i] + " on line no: " + str(lineNo))
+                return -1   
 
         contents = soup.get_text() #conatians the contents of what the user wnats
         #check for "write" to write into file
