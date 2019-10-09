@@ -28,7 +28,7 @@ def main(tokList, lineNo):
             elif tokList[i-1] == 'write' or tokList[i-1] == 'from':
                 continue
             else:
-                print("Unkown token: " + tokList[i] + " on line no: " + str(lineNo))
+                print("Incorrect token: " + tokList[i] + " on line no: " + str(lineNo) + ". Execute help for information.")
                 return -1   
 
         contents = soup.get_text() #conatians the contents of what the user wnats

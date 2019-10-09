@@ -26,6 +26,10 @@ def callModule(tokList, lineNo):
         #get command is used to get the details of the page
         status = get.main(tokList, lineNo)
         return status
+    
+    elif command == "help":
+        status = help.main(tokList, lineNo)
+        return status
 
     else:
         print("Unkown command: " + command + " on line no: " + str(lineNo))
