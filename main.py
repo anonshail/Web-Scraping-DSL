@@ -23,11 +23,12 @@ def callModule(tokList, lineNo):
     #if else ladder of the commands
     if command == "get":
         #get command is used to get the details of the page
-        get.main(tokList, lineNo)
+        status = get.main(tokList, lineNo)
+        return status
 
     else:
-        print("Unkown command: " + command + " on line no: " + lineNo)
-        return
+        print("Unkown command: " + command + " on line no: " + str(lineNo))
+        return -1
 
 def main():
     #This is the main function, it is in charge of splitting tokens
@@ -37,6 +38,7 @@ def main():
         print("Please enter the location of the script to execute")
 
     else:
+        #WIP REMOVE TRY COMMENTS IN THE END WIP!!!
         # try:
         #Reading the files
         for file_name in sys.argv:
@@ -46,10 +48,14 @@ def main():
             file = open(file_name, "r")
 
             #reading the contents of current files
-            lines = file.readlines();
+            lines = file.readlines()
             for i in range(len(lines)):
                 lines[i] = lines[i].split()
-                callModule(lines[i], i+1)
+                status = callModule(lines[i], i+1)
+
+                if(status == -1):
+                    break
+
 
             file.close()
 

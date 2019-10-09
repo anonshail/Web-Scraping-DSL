@@ -8,7 +8,9 @@ import requests
 
 def main(tokList, lineNo):
 
-    #make sure from exists!!! check here!!! WIP
+    if "from" not in tokList:
+        print("Invalid syntax, no from found on line no: " + str(lineNo))
+        return -1
 
     #url comes after from keyword
     urlIndex = tokList.index("from") + 1
@@ -35,4 +37,5 @@ def main(tokList, lineNo):
             print(contents)
 
     else:
-        print("Unkown parameter: " + tokList[1] + " on line no: " + lineNo)
+        print("Unkown parameter: " + tokList[1] + " on line no: " + str(lineNo))
+        return -1
