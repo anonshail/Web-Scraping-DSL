@@ -1,6 +1,4 @@
 #get command in Web Scrapping DSL
-#The purpose of this command is to get details of the particular url, and display it to the user
-#Similar to "ls" command in shell
 
 from bs4 import BeautifulSoup
 import scrapy

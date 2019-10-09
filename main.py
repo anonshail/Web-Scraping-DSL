@@ -10,6 +10,7 @@ import os
 import re
 import get
 import help
+import view
 
 def callModule(tokList, lineNo):
     #this function will be incharge of analyzing the token list, and calling the relative call_module
@@ -29,6 +30,10 @@ def callModule(tokList, lineNo):
     
     elif command == "help":
         status = help.main(tokList, lineNo)
+        return status
+
+    elif command == "view":
+        status = view.main(tokList, lineNo)
         return status
 
     else:

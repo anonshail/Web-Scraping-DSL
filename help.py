@@ -13,7 +13,7 @@ def main(tokList, lineNo):
 
     if len(tokList) > 1:
         print("Incorrect usage of the help command. Simply type help. Error on line no: " + str(lineNo))
-
-    #print the helpStrig weather or not error occours
-
+        print(helpString)
+        return -1
+        
     print(helpString)
