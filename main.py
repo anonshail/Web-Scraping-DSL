@@ -9,6 +9,7 @@ import sys
 import os
 import re
 import get
+import help
 
 def callModule(tokList, lineNo):
     #this function will be incharge of analyzing the token list, and calling the relative call_module
