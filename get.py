@@ -166,6 +166,41 @@ def main(tokList, lineNo):
 
 
 
+    #FOR ID
+    elif(tokList[1] == 'id'):
+        for i in range(len(tokList)):
+            if tokList[i] == 'get' or tokList[i] == 'id' or tokList[i] == 'write' or tokList[i] == 'from':
+                continue
+            elif tokList[i-1] == 'write' or tokList[i-1] == 'from':
+                continue
+            elif tokList[i][0] == '#':  #skip the remaining, since it's a comment
+                break
+            else:
+                print("Incorrect token: " + tokList[i] + " on line no: " + str(lineNo) + ". Execute help for information.")
+                return -1
+
+
+
+
+
+    #FOR CLASS
+    elif(tokList[1] == 'class'):
+        for i in range(len(tokList)):
+            if tokList[i] == 'get' or tokList[i] == 'id' or tokList[i] == 'write' or tokList[i] == 'from':
+                continue
+            elif tokList[i-1] == 'write' or tokList[i-1] == 'from':
+                continue
+            elif tokList[i][0] == '#':  #skip the remaining, since it's a comment
+                break
+            else:
+                print("Incorrect token: " + tokList[i] + " on line no: " + str(lineNo) + ". Execute help for information.")
+                return -1
+
+    #FOR AUDIO
+
+    #FOR VIDEO
+
+
     
     #UNKNOWN COMMAND ERROR
     else:
