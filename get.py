@@ -112,6 +112,37 @@ def main(tokList, lineNo):
                 response = requests.get(urlOfFile)
                 f.write(response.content)
 
+    elif(tokList[1] == 'urls'):
+        #error checking, making sure that all the parameters are correct
+        for i in range(len(tokList)):
+            if tokList[i] == 'get' or tokList[i] == 'urls' or tokList[i] == 'write' or tokList[i] == 'from':
+                continue
+            elif tokList[i-1] == 'write' or tokList[i-1] == 'from':
+                continue
+            else:
+                print("Incorrect token: " + tokList[i] + " on line no: " + str(lineNo) + ". Execute help for information.")
+                return -1
+        
+        #either print the links, or write it to a file, if write is present
+        if  "write" in tokList:
+            #write contents into the file after write keyword
+            fileName = tokList[tokList.index("write") + 1]
+            file = open(fileName, "a")
+            curLink=""
+            for link in soup.find_all('a', href=True):
+                if(link.get('href').startswith('http')):
+                    curLink=link.get('href')
+                file.write(curLink+"\n")               
+            file.close()
+            
+        else:
+            #display all the text of the page on the terminal
+            curLink=""
+            for link in soup.find_all('a', href=True):
+                if(link.get('href').startswith('http')):
+                    curLink=link.get('href')
+                print(curLink)
+
 
 
     else:

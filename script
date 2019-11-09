@@ -1,3 +1,9 @@
-#get text from http://dataquestio.github.io/web-scraping-pages/simple.html
-#get text from http://dataquestio.github.io/web-scraping-pages/simple.html write shata.txt
-help
+#help
+#get text from https://www.parsehub.com/blog/scrape-images-website/
+#get text from https://www.parsehub.com/blog/scrape-images-website/ write shata.txt
+#get images all from https://www.parsehub.com/blog/scrape-images-website/
+#get images https://www.parsehub.com/blog/content/images/size/w2000/2019/08/how-to-scrape-images.jpg from https://www.parsehub.com/blog/scrape-images-website/
+#get images all from https://www.parsehub.com/blog/scrape-images-website/ store dl_images/
+#get images https://www.parsehub.com/blog/content/images/size/w2000/2019/08/how-to-scrape-images.jpg from https://www.parsehub.com/blog/scrape-images-website/ store dl_images/
+#get urls from https://pythonspot.com/extract-links-from-webpage-beautifulsoup/
+#get urls from https://pythonspot.com/extract-links-from-webpage-beautifulsoup/ write shata.txt
