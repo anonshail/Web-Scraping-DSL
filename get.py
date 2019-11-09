@@ -11,17 +11,22 @@ import os
 
 def main(tokList, lineNo):
 
+
     if "from" not in tokList:
         print("Invalid syntax, no from found on line no: " + str(lineNo))
         return -1
 
     #url comes after from keyword
     urlIndex = tokList.index("from") + 1
-
     html_doc = requests.get(tokList[urlIndex])
     soup = BeautifulSoup(html_doc.content, 'html.parser')
 
+
+
     #if else ladder of all the get options
+
+
+    #FOR TEXT
     if(tokList[1] == "text"):
         #cases for text scraping
 
@@ -31,6 +36,8 @@ def main(tokList, lineNo):
                 continue
             elif tokList[i-1] == 'write' or tokList[i-1] == 'from':
                 continue
+            elif tokList[i][0] == '#':  #skip the remaining, since it's a comment
+                break
             else:
                 print("Incorrect token: " + tokList[i] + " on line no: " + str(lineNo) + ". Execute help for information.")
                 return -1   
@@ -48,6 +55,10 @@ def main(tokList, lineNo):
             #display all the text of the page on the terminal
             print(contents)
 
+
+
+
+    #FOR IMAGES
     elif(tokList[1]=="images"):
         #case for images
         storeFlag = False
@@ -60,6 +71,8 @@ def main(tokList, lineNo):
                 continue
             elif tokList[i-1] == 'images' or tokList[i-1] == 'from':
                 continue
+            elif tokList[i][0] == '#':  #skip the remaining, since it's a comment
+                break
             elif tokList[i-1] == 'store':   #if you want to store into a folder
                 storeFlag = True            #enabling store
                 storeLocation = tokList[i]   #location to store is set
@@ -112,6 +125,11 @@ def main(tokList, lineNo):
                 response = requests.get(urlOfFile)
                 f.write(response.content)
 
+
+
+
+
+    #FOR URLS
     elif(tokList[1] == 'urls'):
         #error checking, making sure that all the parameters are correct
         for i in range(len(tokList)):
@@ -119,6 +137,8 @@ def main(tokList, lineNo):
                 continue
             elif tokList[i-1] == 'write' or tokList[i-1] == 'from':
                 continue
+            elif tokList[i][0] == '#':  #skip the remaining, since it's a comment
+                break
             else:
                 print("Incorrect token: " + tokList[i] + " on line no: " + str(lineNo) + ". Execute help for information.")
                 return -1
@@ -145,6 +165,9 @@ def main(tokList, lineNo):
 
 
 
+
+    
+    #UNKNOWN COMMAND ERROR
     else:
         print("Unkown parameter: " + tokList[1] + " on line no: " + str(lineNo))
         return -1
