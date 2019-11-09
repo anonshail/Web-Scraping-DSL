@@ -168,16 +168,32 @@ def main(tokList, lineNo):
 
     #FOR ID
     elif(tokList[1] == 'id'):
+        #Error checking
         for i in range(len(tokList)):
             if tokList[i] == 'get' or tokList[i] == 'id' or tokList[i] == 'write' or tokList[i] == 'from':
                 continue
-            elif tokList[i-1] == 'write' or tokList[i-1] == 'from':
+            elif tokList[i-1] == 'write' or tokList[i-1] == 'from' or tokList[i-1] == 'id':
                 continue
             elif tokList[i][0] == '#':  #skip the remaining, since it's a comment
                 break
             else:
                 print("Incorrect token: " + tokList[i] + " on line no: " + str(lineNo) + ". Execute help for information.")
                 return -1
+
+        currentId = tokList[2]
+
+        if  "write" in tokList:
+            #write to a text file
+            fileName = tokList[tokList.index("write") + 1]
+            file = open(fileName, "a")
+            file.write(str(soup.find(id=tokList[tokList.index('id')+1])))               
+            file.close()
+
+
+        else:
+            #print on terminal
+            print(soup.find(id=tokList[tokList.index('id')+1]))
+
 
 
 
@@ -185,16 +201,32 @@ def main(tokList, lineNo):
 
     #FOR CLASS
     elif(tokList[1] == 'class'):
+        #Error checking
         for i in range(len(tokList)):
             if tokList[i] == 'get' or tokList[i] == 'id' or tokList[i] == 'write' or tokList[i] == 'from':
                 continue
-            elif tokList[i-1] == 'write' or tokList[i-1] == 'from':
+            elif tokList[i-1] == 'write' or tokList[i-1] == 'from' or tokList[i-1] == 'class':
                 continue
             elif tokList[i][0] == '#':  #skip the remaining, since it's a comment
                 break
             else:
                 print("Incorrect token: " + tokList[i] + " on line no: " + str(lineNo) + ". Execute help for information.")
                 return -1
+
+        
+        currentClass = tokList[2]
+
+        if  "write" in tokList:
+            #write to a text file
+            print()
+
+        else:
+            #print on terminal
+            print()
+
+
+
+
 
     #FOR AUDIO
 
