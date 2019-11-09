@@ -7,5 +7,7 @@
 #get images https://www.parsehub.com/blog/content/images/size/w2000/2019/08/how-to-scrape-images.jpg from https://www.parsehub.com/blog/scrape-images-website/ store dl_images/
 #get urls from https://pythonspot.com/extract-links-from-webpage-beautifulsoup/
 #get urls from https://pythonspot.com/extract-links-from-webpage-beautifulsoup/ write shata.txt
-get id programiz-header from https://www.programiz.com/python-programming/methods/list/index
-get id programiz-header from https://www.programiz.com/python-programming/methods/list/index write shata.txt
+#get id programiz-header from https://www.programiz.com/python-programming/methods/list/index
+#get id programiz-header from https://www.programiz.com/python-programming/methods/list/index write shata.txt
+#get class related from https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+#get class related from https://www.crummy.com/software/BeautifulSoup/bs4/doc/ write shata.txt

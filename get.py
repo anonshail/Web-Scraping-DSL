@@ -198,12 +198,11 @@ def main(tokList, lineNo):
 
 
 
-
     #FOR CLASS
     elif(tokList[1] == 'class'):
         #Error checking
         for i in range(len(tokList)):
-            if tokList[i] == 'get' or tokList[i] == 'id' or tokList[i] == 'write' or tokList[i] == 'from':
+            if tokList[i] == 'get' or tokList[i] == 'class' or tokList[i] == 'write' or tokList[i] == 'from':
                 continue
             elif tokList[i-1] == 'write' or tokList[i-1] == 'from' or tokList[i-1] == 'class':
                 continue
@@ -218,11 +217,16 @@ def main(tokList, lineNo):
 
         if  "write" in tokList:
             #write to a text file
-            print()
+            fileName = tokList[tokList.index("write") + 1]
+            file = open(fileName, "a")
+            for tag in soup.find_all(class_=tokList[2]):
+                file.write(str(tag)+"\n")
+            file.close()
 
         else:
             #print on terminal
-            print()
+            for tag in soup.find_all(class_=tokList[2]):
+                print(str(tag)+"\n")
 
 
 
