@@ -11,3 +11,7 @@
 #get id programiz-header from https://www.programiz.com/python-programming/methods/list/index write shata.txt
 #get class related from https://www.crummy.com/software/BeautifulSoup/bs4/doc/
 #get class related from https://www.crummy.com/software/BeautifulSoup/bs4/doc/ write shata.txt
+#get videos all from https://www.html5rocks.com/en/tutorials/video/basics/
+#get videos all from https://www.html5rocks.com/en/tutorials/video/basics/ store dl_videos/
+get file http://codex.cs.yale.edu/avi/db-book/db4/slide-dir/ch1-2.pdf
+get file http://codex.cs.yale.edu/avi/db-book/db4/slide-dir/ch1-2.pdf store dl_files/
