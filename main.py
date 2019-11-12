@@ -45,9 +45,37 @@ def main():
 
     #if no arguments present
     if(len(sys.argv) <= 1):
-        print("Please enter the location of the script to execute")
+        #Starting commmand line
+        
+        print("WEB SCRAPING DSL COMMAND LINE: ")
+        print("Version: v1.0")
+        print("Type 'exit' to exit the command line")
+        
+        
+        #Starting infinite loop of commandline, will exit on 'exit' command
+        while(True):
+            print("> ", end="")
+            command = input() #entering the command
+
+            #if command is exit, break the loop
+            if(command == 'exit' or command == 'Exit'):
+                break
+
+            #else execute the command
+            status = callModule(command.split(), 1)
+            
+            #if status is -1, error has occoured, so the execution is halted
+
+            if(status == -1): 
+                break
+
+
+
 
     else:
+        #Executing script(s)
+
+
         #WIP REMOVE TRY COMMENTS IN THE END WIP!!!
         # try:
         #Reading the files
