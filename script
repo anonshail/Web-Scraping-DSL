@@ -13,6 +13,12 @@
 #get class related from https://www.crummy.com/software/BeautifulSoup/bs4/doc/ write shata.txt
 #get videos all from https://www.html5rocks.com/en/tutorials/video/basics/
 #get videos all from https://www.html5rocks.com/en/tutorials/video/basics/ store dl_videos/
+#get videos https://www.html5rocks.com/en/tutorials/video/basics/devstories.webm from https://www.html5rocks.com/en/tutorials/video/basics/
+#get videos https://www.html5rocks.com/en/tutorials/video/basics/devstories.webm from https://www.html5rocks.com/en/tutorials/video/basics/ store dl_videos/
+#get audio all from https://html5tutorial.info/html5-audio.php
+#get audio all from https://html5tutorial.info/html5-audio.php store dl_audios/
+#get audio https://html5tutorial.info/media/vincent.mp3 from https://html5tutorial.info/html5-audio.php
+#get audio https://html5tutorial.info/media/vincent.mp3 from https://html5tutorial.info/html5-audio.php store dl_audios/
 #get file http://codex.cs.yale.edu/avi/db-book/db4/slide-dir/ch1-2.pdf
 #get file http://codex.cs.yale.edu/avi/db-book/db4/slide-dir/ch1-2.pdf store dl_files/
 #view text from https://en.wikipedia.org/wiki/2008_Noida_double_murder_case
