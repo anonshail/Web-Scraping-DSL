@@ -12,6 +12,7 @@
 # 5. View Files
 # 6. View Id
 # 7. View Class
+# 8. View Audios
 
 
 
@@ -68,8 +69,9 @@ def main(tokList, lineNo):
 
 
         #Final Report String
-        reportString = "The responce contains " + str(noOfWords) +" word(s) and " + str(lengthOfText) + " character(s)" 
-        reportString+="\n"
+        reportString = "Text report for the page : " + tokList[urlIndex] += "\n\n"
+        reportString += "The responce contains " + str(noOfWords) +" word(s) and " + str(lengthOfText) + " character(s)" 
+        reportString += "\n\n"
         
 
         #now, either display the report string on the terminal, or write it into a text file
@@ -116,16 +118,30 @@ def main(tokList, lineNo):
         #obtraining src url form the image tags
         urls = [img['src'] for img in img_tags]
 
+        #attempting to fix urls
+        for i in range(len(urls)):
+            if urls[i].startswith('http'):
+                continue
+            elif urls[i].startswith('//'):
+                urls[i]="http:"+urls[i]
+            elif urls[i].startswith('/'):
+                baseUrl =  os.path.dirname(tokList[urlIndex])
+                urls[i] = baseUrl + urls[i]
+            else:
+                baseUrl =  os.path.dirname(tokList[urlIndex])
+                urls[i] = baseUrl + '/' + urls[i]
+
         #obtaining filename list, from the urls
         filenames = [url.split('/')[-1].split('#')[0].split('?')[0] for url in urls]
 
         #creating a report string
-        reportString = "Filename\tUrl"
+        reportString = "Images report for the page : " + tokList[urlIndex] += "\n\n"
+        reportString += "Filename: Url"
 
         for i in range(len(urls)):
-            reportString += "\n" + filenames[i] + "\t" + urls[i]
+            reportString += "\n" + filenames[i] + ": " + urls[i]
         
-        reportString+="\n"
+        reportString+="\n\n"
         
         
         #now, to either write the report string into a file or print it
@@ -139,3 +155,9 @@ def main(tokList, lineNo):
         else:
             #display all the text of the page on the terminal
             print(reportString)
+    
+
+
+
+
+    #FOR VIDEO
