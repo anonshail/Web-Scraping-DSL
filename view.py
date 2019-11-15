@@ -69,7 +69,7 @@ def main(tokList, lineNo):
 
 
         #Final Report String
-        reportString = "Text report for the page : " + tokList[urlIndex] += "\n\n"
+        reportString = "Text report for the page : " + tokList[urlIndex] + "\n\n"
         reportString += "The responce contains " + str(noOfWords) +" word(s) and " + str(lengthOfText) + " character(s)" 
         reportString += "\n\n"
         
@@ -135,7 +135,8 @@ def main(tokList, lineNo):
         filenames = [url.split('/')[-1].split('#')[0].split('?')[0] for url in urls]
 
         #creating a report string
-        reportString = "Images report for the page : " + tokList[urlIndex] += "\n\n"
+        reportString = "Images report for the page : " + tokList[urlIndex] + "\n"
+        reportString += "Number of images: " + str(len(urls)) + "\n\n"
         reportString += "Filename: Url"
 
         for i in range(len(urls)):
@@ -160,4 +161,127 @@ def main(tokList, lineNo):
 
 
 
+
+
     #FOR VIDEO
+    if(tokList[1] == 'videos'):
+        #error checking, making sure that all the parameters are correct
+        for i in range(len(tokList)):
+            if tokList[i] == 'view' or tokList[i] == 'videos' or tokList[i] == 'write' or tokList[i] == 'from':
+                continue
+            elif tokList[i-1] == 'write' or tokList[i-1] == 'from':
+                continue
+            elif tokList[i][0] == '#':  #skip the remaining, since it's a comment
+                break
+            else:
+                print("Incorrect token: " + tokList[i] + " on line no: " + str(lineNo) + ". Execute help for information.")
+                return -1
+
+        
+        #obtaining all video tags
+        video_tags = soup.find_all('video')
+
+        #obtaining urls of the video tags
+        urls = [video.source['src'] for video in video_tags]
+
+        #attempting to fix urls
+        for i in range(len(urls)):
+            if urls[i].startswith('http'):
+                continue
+            elif urls[i].startswith('//'):
+                urls[i]="http:"+urls[i]
+            elif urls[i].startswith('/'):
+                baseUrl =  os.path.dirname(tokList[urlIndex])
+                urls[i] = baseUrl + urls[i]
+            else:
+                baseUrl =  os.path.dirname(tokList[urlIndex])
+                urls[i] = baseUrl + '/' + urls[i]
+
+        #obtaining filename list, from the urls
+        filenames = [url.split('/')[-1].split('#')[0].split('?')[0] for url in urls]
+
+        #creating a report string
+        reportString = "Videos report for the page : " + tokList[urlIndex] + "\n"
+        reportString += "Number of videos: " + str(len(urls)) + "\n\n"
+        reportString += "Filename: Url"
+
+        for i in range(len(urls)):
+            reportString += "\n" + filenames[i] + ": " + urls[i]
+        
+        reportString+="\n\n"
+        
+        
+        #now, to either write the report string into a file or print it
+        if  "write" in tokList:
+            #write contents into the file after write keyword
+            fileName = tokList[tokList.index("write") + 1]
+            file = open(fileName, "a")
+            file.write(reportString)
+            file.close()
+            
+        else:
+            #display all the text of the page on the terminal
+            print(reportString)
+
+    
+
+
+    #FOR AUDIO
+    if(tokList[1] == 'audios'):
+        #error checking, making sure that all the parameters are correct
+        for i in range(len(tokList)):
+            if tokList[i] == 'view' or tokList[i] == 'audios' or tokList[i] == 'write' or tokList[i] == 'from':
+                continue
+            elif tokList[i-1] == 'write' or tokList[i-1] == 'from':
+                continue
+            elif tokList[i][0] == '#':  #skip the remaining, since it's a comment
+                break
+            else:
+                print("Incorrect token: " + tokList[i] + " on line no: " + str(lineNo) + ". Execute help for information.")
+                return -1
+
+        
+        #obtaining all audio tags
+        audio_tags = soup.find_all('audio')
+
+        #obtaining urls of the audio tags
+        urls = [audio.source['src'] for audio in audio_tags]
+
+        #attempting to fix urls
+        for i in range(len(urls)):
+            if urls[i].startswith('http'):
+                continue
+            elif urls[i].startswith('//'):
+                urls[i]="http:"+urls[i]
+            elif urls[i].startswith('/'):
+                baseUrl =  os.path.dirname(tokList[urlIndex])
+                urls[i] = baseUrl + urls[i]
+            else:
+                baseUrl =  os.path.dirname(tokList[urlIndex])
+                urls[i] = baseUrl + '/' + urls[i]
+
+        #obtaining filename list, from the urls
+        filenames = [url.split('/')[-1].split('#')[0].split('?')[0] for url in urls]
+
+        #creating a report string
+        reportString = "Audios report for the page : " + tokList[urlIndex] + "\n"
+        reportString += "Number of audios: " + str(len(urls)) + "\n\n"
+        reportString += "Filename: Url"
+
+        for i in range(len(urls)):
+            reportString += "\n" + filenames[i] + ": " + urls[i]
+        
+        reportString+="\n\n"
+        
+        
+        #now, to either write the report string into a file or print it
+        if  "write" in tokList:
+            #write contents into the file after write keyword
+            fileName = tokList[tokList.index("write") + 1]
+            file = open(fileName, "a")
+            file.write(reportString)
+            file.close()
+            
+        else:
+            #display all the text of the page on the terminal
+            print(reportString)
