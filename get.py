@@ -20,8 +20,7 @@ def main(tokList, lineNo):
     if("file" not in tokList):
         urlIndex = tokList.index("from") + 1
         html_doc = requests.get(tokList[urlIndex])
-        soup = BeautifulSoup(html_doc.content, 'html.parser')
-
+        soup = BeautifulSoup(html_doc.content, 'html.parser')    
 
 
     #if else ladder of all the get options
@@ -101,8 +100,12 @@ def main(tokList, lineNo):
                     continue
                 elif urls[i].startswith('//'):
                     urls[i]="http:"+urls[i]
+                elif urls[i].startswith('/'):
+                    baseUrl =  os.path.dirname(tokList[urlIndex])
+                    urls[i] = baseUrl + urls[i]
                 else:
-                    urls[i]=tokList[urlIndex]+urls[i]
+                    baseUrl =  os.path.dirname(tokList[urlIndex])
+                    urls[i] = baseUrl + '/' + urls[i]
                 
 
             for url in urls:
@@ -321,8 +324,12 @@ def main(tokList, lineNo):
                     continue
                 elif urls[i].startswith('//'):
                     urls[i]="http:"+urls[i]
+                elif urls[i].startswith('/'):
+                    baseUrl =  os.path.dirname(tokList[urlIndex])
+                    urls[i] = baseUrl + urls[i]
                 else:
-                    urls[i]=tokList[urlIndex]+urls[i]
+                    baseUrl =  os.path.dirname(tokList[urlIndex])
+                    urls[i] = baseUrl + '/' + urls[i]
 
             for url in urls:
                 #filename = re.search(r'/([\w_-]+[.](mp4|ogg|webm))$', url)
@@ -349,6 +356,89 @@ def main(tokList, lineNo):
             with open(storeLocation+filename, 'wb') as f:
                 if 'http' not in urlOfFile:
                     # sometimes an video source can be relative 
+                    # if it is provide the base urlOfFile which also happens 
+                    # to be the site variable atm. 
+                    urlOfFile = '{}{}'.format(tokList[urlIndex], urlOfFile)
+                response = requests.get(urlOfFile)
+                f.write(response.content)
+
+
+
+
+    #FOR AUDIO
+    elif(tokList[1]=="audios"):
+        #case for audios
+        storeFlag = False
+        storeLocation = ''   #location to store audios into, if storeFlat is set to true        
+
+        #error checking, making sure that all the parameters are correct
+        for i in range(len(tokList)):
+            if tokList[i] == 'get' or tokList[i] == 'audios' or tokList[i] == 'from' or tokList[i] == 'store':
+                continue
+            elif tokList[i-1] == 'audios' or tokList[i-1] == 'from':
+                continue
+            elif tokList[i][0] == '#':  #skip the remaining, since it's a comment
+                break
+            elif tokList[i-1] == 'store':   #if you want to store into a folder
+                storeFlag = True            #enabling store
+                storeLocation = tokList[i]   #location to store is set
+
+                #check if storeLocation exists, or else create it
+                if(os.path.exists(storeLocation)==False):
+                    os.mkdir(storeLocation)
+
+
+            else:
+                print("Incorrect token: " + tokList[i] + " on line no: " + str(lineNo) + ". Execute help for information.")
+                return -1
+
+        #check which audios to get, i.e., all or some specific audios
+        #here, tokList[2] must contain all, or a particular audio to download
+
+        if(tokList[2] == 'all'):
+            #download all audios
+            audio_tags = soup.find_all('audio')
+            urls = [audio.source['src'] for audio in audio_tags]
+
+            #attempting to fix urls
+            for i in range(len(urls)):
+                if urls[i].startswith('http'):
+                    continue
+                elif urls[i].startswith('//'):
+                    urls[i]="http:"+urls[i]
+                elif urls[i].startswith('/'):
+                    baseUrl =  os.path.dirname(tokList[urlIndex])
+                    urls[i] = baseUrl + urls[i]
+                else:
+                    baseUrl =  os.path.dirname(tokList[urlIndex])
+                    urls[i] = baseUrl + '/' + urls[i]
+
+
+            for url in urls:
+                #filename = re.search(r'/([\w_-]+[.](mp4|ogg|webm))$', url)
+                filename = url.split('/')[-1].split('#')[0].split('?')[0]
+                with open(storeLocation+filename, 'wb') as f:
+                    if 'http' not in url:
+                        # sometimes an audio source can be relative 
+                        # if it is provide the base url which also happens 
+                        # to be the site variable atm. 
+                        url = '{}{}'.format(tokList[urlIndex], url)
+                    response = requests.get(url)
+                    f.write(response.content)
+
+        else:
+            #download a particular audio
+            if(tokList[2]=='from'):
+                #no audio has been mentioned, hence, throw error, while checking for store
+                print("No audio mentioned on line no: " + str(lineNo) + ". Execute help for information.")
+                return -1
+            
+            #now, download audio stored in tokList[2] or throw an error, while checking for store
+            urlOfFile = tokList[2]
+            filename = urlOfFile.split('/')[-1].split('#')[0].split('?')[0]
+            with open(storeLocation+filename, 'wb') as f:
+                if 'http' not in urlOfFile:
+                    # sometimes an audio source can be relative 
                     # if it is provide the base urlOfFile which also happens 
                     # to be the site variable atm. 
                     urlOfFile = '{}{}'.format(tokList[urlIndex], urlOfFile)
