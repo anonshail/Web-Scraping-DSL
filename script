@@ -25,5 +25,9 @@
 #view text from https://en.wikipedia.org/wiki/2008_Noida_double_murder_case write shata.txt
 #view images from https://en.wikipedia.org/wiki/2008_Noida_double_murder_case
 #view images from https://en.wikipedia.org/wiki/2008_Noida_double_murder_case write shata.txt
-#view videos
-#view files
+#view videos from given_url 
+#view videos from given_url write shata.txt
+#view audios from given_url 
+#view audios from given_url write shata.txt
+#view files from given_url 
+#view files from given_url write shata.txt
