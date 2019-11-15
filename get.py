@@ -164,8 +164,17 @@ def main(tokList, lineNo):
             file = open(fileName, "a")
             curLink=""
             for link in soup.find_all('a', href=True):
-                if(link.get('href').startswith('http')):
+                
+                if link.get('href').startswith('http'):
                     curLink=link.get('href')
+                elif link.get('href').startswith('//'):
+                    curLink="http:"+link.get('href')
+                elif link.get('href').startswith('/'):
+                    baseUrl =  os.path.dirname(tokList[urlIndex])
+                    curLink = baseUrl + link.get('href')
+                else:
+                    baseUrl =  os.path.dirname(tokList[urlIndex])
+                    curLink = baseUrl + '/' + link.get('href')
                 file.write(curLink+"\n")               
             file.close()
             
@@ -173,8 +182,16 @@ def main(tokList, lineNo):
             #display all the text of the page on the terminal
             curLink=""
             for link in soup.find_all('a', href=True):
-                if(link.get('href').startswith('http')):
+                if link.get('href').startswith('http'):
                     curLink=link.get('href')
+                elif link.get('href').startswith('//'):
+                    curLink="http:"+link.get('href')
+                elif link.get('href').startswith('/'):
+                    baseUrl =  os.path.dirname(tokList[urlIndex])
+                    curLink = baseUrl + link.get('href')
+                else:
+                    baseUrl =  os.path.dirname(tokList[urlIndex])
+                    curLink = baseUrl + '/' + link.get('href')
                 print(curLink)
 
 
