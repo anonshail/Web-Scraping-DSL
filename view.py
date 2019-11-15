@@ -69,12 +69,66 @@ def main(tokList, lineNo):
 
         #Final Report String
         reportString = "The responce contains " + str(noOfWords) +" word(s) and " + str(lengthOfText) + " character(s)" 
-
+        reportString+="\n"
+        
 
         #now, either display the report string on the terminal, or write it into a text file
         #if the 'write' keyword is present
 
 
+        if  "write" in tokList:
+            #write contents into the file after write keyword
+            fileName = tokList[tokList.index("write") + 1]
+            file = open(fileName, "a")
+            file.write(reportString)
+            file.close()
+            
+        else:
+            #display all the text of the page on the terminal
+            print(reportString)
+    
+
+
+
+    #FOR IMAGES
+    if(tokList[1] == 'images'):
+        #error checking, making sure that all the parameters are correct
+        for i in range(len(tokList)):
+            if tokList[i] == 'view' or tokList[i] == 'images' or tokList[i] == 'write' or tokList[i] == 'from':
+                continue
+            elif tokList[i-1] == 'write' or tokList[i-1] == 'from':
+                continue
+            elif tokList[i][0] == '#':  #skip the remaining, since it's a comment
+                break
+            else:
+                print("Incorrect token: " + tokList[i] + " on line no: " + str(lineNo) + ". Execute help for information.")
+                return -1
+        
+
+
+        #now, to obtain a list of titles of the images, and the image urls
+        #and to display to the user, or to write the results into a file
+
+
+        #obtaining all image tags
+        img_tags = soup.find_all('img')
+
+        #obtraining src url form the image tags
+        urls = [img['src'] for img in img_tags]
+
+        #obtaining filename list, from the urls
+        filenames = [url.split('/')[-1].split('#')[0].split('?')[0] for url in urls]
+
+        #creating a report string
+        reportString = "Filename\tUrl"
+
+        for i in range(len(urls)):
+            reportString += "\n" + filenames[i] + "\t" + urls[i]
+        
+        reportString+="\n"
+        
+        
+        #now, to either write the report string into a file or print it
         if  "write" in tokList:
             #write contents into the file after write keyword
             fileName = tokList[tokList.index("write") + 1]
