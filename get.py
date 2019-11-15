@@ -95,6 +95,16 @@ def main(tokList, lineNo):
             img_tags = soup.find_all('img')
             urls = [img['src'] for img in img_tags]
 
+            #attempting to fix urls
+            for i in range(len(urls)):
+                if urls[i].startswith('http'):
+                    continue
+                elif urls[i].startswith('//'):
+                    urls[i]="http:"+urls[i]
+                else:
+                    urls[i]=tokList[urlIndex]+urls[i]
+                
+
             for url in urls:
                 #filename = re.search(r'/([\w_-]+[.](jpg|gif|png))$', url)
                 filename = url.split('/')[-1].split('#')[0].split('?')[0]
@@ -274,8 +284,7 @@ def main(tokList, lineNo):
     elif(tokList[1]=="videos"):
         #case for videos
         storeFlag = False
-        storeLocation = ''   #location to store videos into, if storeFlat is set to true
-        
+        storeLocation = ''   #location to store videos into, if storeFlat is set to true        
 
         #error checking, making sure that all the parameters are correct
         for i in range(len(tokList)):
@@ -305,6 +314,15 @@ def main(tokList, lineNo):
             #download all videos
             video_tags = soup.find_all('video')
             urls = [video.source['src'] for video in video_tags]
+
+            #attempting to fix urls
+            for i in range(len(urls)):
+                if urls[i].startswith('http'):
+                    continue
+                elif urls[i].startswith('//'):
+                    urls[i]="http:"+urls[i]
+                else:
+                    urls[i]=tokList[urlIndex]+urls[i]
 
             for url in urls:
                 #filename = re.search(r'/([\w_-]+[.](mp4|ogg|webm))$', url)
