@@ -64,10 +64,10 @@ def main():
             #else execute the command
             status = callModule(command.split(), 1)
             
-            #if status is -1, error has occoured, so the execution is halted
+            # #if status is -1, error has occoured, so the execution is halted
 
-            if(status == -1): 
-                break
+            # if(status == -1): 
+            #     break
 
 
 
