@@ -20,6 +20,41 @@ varTable = {}
 #initializing lists table
 listTable = {}
 
+def preprocess(tokList, lineNo):
+    #this function will take the token list, preprocess it for variables and lists
+    nameOfId = tokList[tokList.index('from')+1] #name of identifier (var or list)
+
+    #if name of id is a valid url, then no preprocessing required, return same tokList
+    if(nameOfId.startswith("http")):
+        #valid url, return tokList as is
+        return [tokList]
+    
+    #some preprocessing required
+
+    #first check if nameOfId exists in varTable
+    if nameOfId in varTable.keys():
+        #replacing url with correct url value
+        urlIndex = tokList.index('from')+1
+        tokList[urlIndex] = varTable[nameOfId]
+        return [tokList]
+
+    #now check if nameOfId exists in 
+    elif nameOfId in listTable.keys():
+        #creating all possible lists
+
+        tokLL = [] #tokListLists
+        for url in listTable[nameOfId]:
+            urlIndex = tokList.index('from')+1
+            tokList[urlIndex] = url
+            tokLL.append(tokList)
+        
+        print(tokLL)
+        return tokLL
+    
+    else:
+        print("Unknown identifier: " + nameOfId + "on line number: " + str(lineNo))
+        return -1 #error status
+
 
 def callModule(tokList, lineNo):
     #this function will be incharge of analyzing the token list, and calling the relative call_module
@@ -33,9 +68,15 @@ def callModule(tokList, lineNo):
 
     #if else ladder of the commands
     if command == "get":
-        #get command is used to get the details of the page
-        status = get.main(tokList, lineNo)
-        return status
+        tokListLists = preprocess(tokList, lineNo)
+
+        if tokListLists == -1: #identifier not found
+            return -1
+
+        for tokenList in tokListLists:
+            status = get.main(tokenList, lineNo)
+            if(status == -1):
+                return status
     
     
     elif command == "help":
@@ -44,8 +85,15 @@ def callModule(tokList, lineNo):
 
 
     elif command == "view":
-        status = view.main(tokList, lineNo)
-        return status
+        tokListLists = preprocess(tokList, lineNo)
+
+        if tokListLists == -1: #identifier not found
+            return -1
+
+        for tokenList in tokListLists:
+            status = get.main(tokenList, lineNo)
+            if(status == -1):
+                return status
 
 
     elif command == "let":
@@ -64,7 +112,6 @@ def callModule(tokList, lineNo):
         #if status is -1, error has occoured, or else, add list to the table
         if status != -1:
             listTable[status[0]] = status[1]
-            print (listTable)
         
         return status
 
