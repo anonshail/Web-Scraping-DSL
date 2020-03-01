@@ -11,6 +11,15 @@ import re
 import get
 import help
 import view
+import let
+import list as listCmd
+
+#initializing variables table
+varTable = {}
+
+#initializing lists table
+listTable = {}
+
 
 def callModule(tokList, lineNo):
     #this function will be incharge of analyzing the token list, and calling the relative call_module
@@ -28,13 +37,37 @@ def callModule(tokList, lineNo):
         status = get.main(tokList, lineNo)
         return status
     
+    
     elif command == "help":
         status = help.main(tokList, lineNo)
         return status
 
+
     elif command == "view":
         status = view.main(tokList, lineNo)
         return status
+
+
+    elif command == "let":
+        status = let.main(tokList, lineNo)
+
+        #if status is -1, error has occoured, or else, add variable to the table
+        if status != -1:
+            varTable[status[0]] = status[1]
+
+        return status
+    
+
+    elif command == "list":
+        status = listCmd.main(tokList, lineNo)
+
+        #if status is -1, error has occoured, or else, add list to the table
+        if status != -1:
+            listTable[status[0]] = status[1]
+            print (listTable)
+        
+        return status
+
 
     else:
         print("Unkown command: " + command + " on line no: " + str(lineNo))

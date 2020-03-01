@@ -1,7 +1,6 @@
 #get command in Web Scrapping DSL
 
 from bs4 import BeautifulSoup
-import scrapy
 import requests
 import sys
 import shutil

@@ -16,7 +16,6 @@
 
 #modules to be imported
 from bs4 import BeautifulSoup
-import scrapy
 import requests
 import sys
 import shutil
