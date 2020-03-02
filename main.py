@@ -45,10 +45,10 @@ def preprocess(tokList, lineNo):
         tokLL = [] #tokListLists
         for url in listTable[nameOfId]:
             urlIndex = tokList.index('from')+1
-            tokList[urlIndex] = url
-            tokLL.append(tokList)
+            newList = tokList.copy()
+            newList[urlIndex] = url
+            tokLL.append(newList)
         
-        print(tokLL)
         return tokLL
     
     else:
