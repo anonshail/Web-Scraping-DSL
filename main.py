@@ -128,7 +128,7 @@ def main():
         #Starting commmand line
         
         print("WEB SCRAPING DSL COMMAND LINE: ")
-        print("Version: v1.0")
+        print("Version: v1.4")
         print("Type 'exit' to exit the command line")
         
         
