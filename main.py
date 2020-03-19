@@ -22,6 +22,11 @@ listTable = {}
 
 def preprocess(tokList, lineNo):
     #this function will take the token list, preprocess it for variables and lists
+
+    if "from" not in tokList:   #from must be there, since there has to be a url
+        print("Invalid syntax, no from found on line no: " + str(lineNo))
+        return -1
+
     nameOfId = tokList[tokList.index('from')+1] #name of identifier (var or list)
 
     #if name of id is a valid url, then no preprocessing required, return same tokList
@@ -91,7 +96,7 @@ def callModule(tokList, lineNo):
             return -1
 
         for tokenList in tokListLists:
-            status = get.main(tokenList, lineNo)
+            status = view.main(tokenList, lineNo)
             if(status == -1):
                 return status
 

@@ -90,7 +90,7 @@ def main(tokList, lineNo):
 
 
     #FOR IMAGES
-    if(tokList[1] == 'images'):
+    elif(tokList[1] == 'images'):
         #error checking, making sure that all the parameters are correct
         for i in range(len(tokList)):
             if tokList[i] == 'view' or tokList[i] == 'images' or tokList[i] == 'write' or tokList[i] == 'from':
