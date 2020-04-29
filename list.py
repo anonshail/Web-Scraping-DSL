@@ -3,6 +3,31 @@
 
 #Synatx: list listName equals URL1 URL2 URL3
 
+keywords = [
+    'let',
+    'list',
+    'freevar',
+    'freelist',
+    'mem',
+    'verbose',
+    'get',
+    'view',
+    'help',
+    'images',
+    'text',
+    'audios',
+    'videos',
+    'all',
+    'from',
+    'urls',
+    'id',
+    'write',
+    'class',
+    'store',
+    'file',
+    'vars'
+]
+
 def main(tokList, lineNo):
 
     #check if tokList has equals, if not throw error
@@ -25,6 +50,13 @@ def main(tokList, lineNo):
 
     #creating name/value pair
     listName = tokList[tokList.index("equals") - 1]
+
+    #error checking
+    #if list name is a reserved keyword, throw error
+    if listName in keywords:
+        print("Error on line: " + str(lineNo) + " List name cannot be a keyword: " + listName)
+        return -1
+
     listValues = tokList[tokList.index("equals") + 1 : ] # contains all url values
 
     #trimming the listValues of comment tokens

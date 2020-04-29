@@ -3,6 +3,31 @@
 
 #Synatx: let varName equals URL
 
+keywords = [
+    'let',
+    'list',
+    'freevar',
+    'freelist',
+    'mem',
+    'verbose',
+    'get',
+    'view',
+    'help',
+    'images',
+    'text',
+    'audios',
+    'videos',
+    'all',
+    'from',
+    'urls',
+    'id',
+    'write',
+    'class',
+    'store',
+    'file',
+    'vars'
+]
+
 def main(tokList, lineNo):
 
     #check if tokList has equals, if not throw error
@@ -25,6 +50,13 @@ def main(tokList, lineNo):
 
     #creating name/value pair
     varName = tokList[tokList.index("equals") - 1]
+
+    #error checking
+    #if list name is a reserved keyword, throw error
+    if varName in keywords:
+        print("Error on line: " + str(lineNo) + " Variable name cannot be a keyword: " + varName)
+        return -1
+
     varValue = tokList[tokList.index("equals") + 1]
 
     return [varName, varValue]

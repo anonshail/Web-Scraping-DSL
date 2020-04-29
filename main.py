@@ -13,6 +13,7 @@ import help
 import view
 import let
 import list as listCmd
+import mem
 
 #initializing variables table
 varTable = {}
@@ -119,6 +120,59 @@ def callModule(tokList, lineNo):
             listTable[status[0]] = status[1]
         
         return status
+
+    elif command == "freevar":
+        #this block of code is to remove all the variables that user wants to delete
+
+        varToDelete = tokList[1:]
+
+        #error checking to ensure all the variables do infact exist
+        flag=1
+        for var in varToDelete:
+            if var in varTable:
+                continue
+            else:
+                print("Error on line " + str(lineNo) + " no variable: " + var + " found")
+                flag=0
+
+        if(flag==0):
+            #if flag is 0, the command is incorrect
+            return -1
+        
+        #now to go about and deleting all the variables from the varTable
+
+        for var in varToDelete:
+            del varTable[var]
+    
+    elif command == "freelist":
+        #this block of code is to remove all the lists that the user wants to delete
+
+        listsToDelete = tokList[1:]
+
+        #error checking to ensure all the lists do infact exist
+        flag=1
+        for list_ in listsToDelete:
+            if list_ in listTable:
+                continue
+            else:
+                print("Error on line " + str(lineNo) + " no list: " + list_ + " found")
+                flag=0
+
+        if(flag==0):
+            #if flag is 0, the command is incorrect
+            return -1
+        
+        #now to go about and deleting all the variables from the varTable
+
+        for list_ in listsToDelete:
+            del listTable[list_]
+    
+    elif command == "mem":
+        status = mem.main(tokList, lineNo, varTable, listTable)
+
+        #if an error is there in the command
+        if(status == -1):
+            return status
 
 
     else:
