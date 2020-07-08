@@ -1,4 +1,4 @@
-#WebScraping DSL v0.1
+    #WebScraping DSL v0.1
 #Author: Shail K Shah
 #Purpose of this file
 #---------------------
@@ -44,7 +44,7 @@ def preprocess(tokList, lineNo):
         tokList[urlIndex] = varTable[nameOfId]
         return [tokList]
 
-    #now check if nameOfId exists in 
+    #now check if nameOfId exists in listTable
     elif nameOfId in listTable.keys():
         #creating all possible lists
 
@@ -103,7 +103,7 @@ def callModule(tokList, lineNo):
 
 
     elif command == "let":
-        status = let.main(tokList, lineNo)
+        status = let.main(tokList, lineNo, varTable, listTable)
 
         #if status is -1, error has occoured, or else, add variable to the table
         if status != -1:
@@ -113,7 +113,7 @@ def callModule(tokList, lineNo):
     
 
     elif command == "list":
-        status = listCmd.main(tokList, lineNo)
+        status = listCmd.main(tokList, lineNo, varTable, listTable)
 
         #if status is -1, error has occoured, or else, add list to the table
         if status != -1:

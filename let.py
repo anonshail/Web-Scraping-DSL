@@ -28,7 +28,36 @@ keywords = [
     'vars'
 ]
 
-def main(tokList, lineNo):
+def doesExist(varName, varTable, listTable):
+    #The purpose of this function is to ensure that the variable name does not already exist
+    #If it does, it returns 1
+    #Else it returns 0
+
+    #checking if the variable name is there in the variableTable
+    if varName in varTable:
+        return 1
+
+    #checking if the variable name is there in the listTale
+    if varName in listTable:
+        return 1
+
+    #all ok, return 0
+    else:
+        return 0
+    
+def startsWithHttp(varName):
+    #The purpose of this function is to ensure that the vairable name does not start with http
+    #varName cannot start with http, or else the code will break
+
+    #If incorrect variable is used, it should return 0
+    if varName.startswith("http"):
+        return 1
+
+    #All okay, return 0
+    else:
+        return 0
+
+def main(tokList, lineNo, varTable, listTable):
 
     #check if tokList has equals, if not throw error
     if('equals' not in tokList):
@@ -47,9 +76,26 @@ def main(tokList, lineNo):
         else:
             print("Incorrect token: " + tokList[i] + " on line no: " + str(lineNo) + ". Execute help for information.")
             return -1
+    
 
     #creating name/value pair
     varName = tokList[tokList.index("equals") - 1]
+
+    #Further error checking
+
+    #Checking to ensure that the variable name does not already exist
+    if doesExist(varName, varTable, listTable) == 1:
+        #Error has occoured
+
+        print("Variable name: " + varName + " already exists. Error on line: " + str(lineNo))
+        return -1
+
+    #Checking to ensure variable name does not start with http
+    if startsWithHttp(varName) == 1:
+        #Error has occoured
+        print("Incorrect variable name: " + varName + ". It cannot start with https. Error on line: " + str(lineNo))
+        return -1              
+                 
 
     #error checking
     #if list name is a reserved keyword, throw error
