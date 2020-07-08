@@ -1,3 +1,10 @@
+# Requirements:
+The following are the requirements to run this DSL:
+1) Python3
+2) Pip
+3) Beautiful Soup 4
+4) Scrapy
+
 # Steps to run
 To run the language in CLI mode simply use the following command:
 
