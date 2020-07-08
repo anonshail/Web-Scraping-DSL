@@ -1,3 +1,12 @@
+# Steps to run
+To run the language in CLI mode simply use the following command:
+
+`python3 main.py`
+
+To run a particular script:
+
+`python3 main.py <location_of_script>
+
 # Syntax:
 ## 1) let command
 
