@@ -5,7 +5,7 @@ To run the language in CLI mode simply use the following command:
 
 To run a particular script:
 
-`python3 main.py <location_of_script>
+`python3 main.py <location_of_script>`
 
 # Syntax:
 ## 1) let command
